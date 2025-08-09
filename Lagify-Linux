@@ -1,0 +1,72 @@
+#!/usr/bin/env python3
+import os
+import requests
+import zipfile
+import subprocess
+import shutil
+
+URL = "https://github.com/DevSugv/Lagify-Linux/releases/download/main1/Release.zip"
+ZIP_PATH = "Release.zip"
+EXTRACT_DIR = "Release"
+RUN_SCRIPT = os.path.join(EXTRACT_DIR, "release", "Lagify.py")
+SIZE_FILE = ".release_zip_size"
+
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36"
+}
+
+def download_zip():
+    print("[*] Downloading the zip...")
+    r = requests.get(URL, headers=HEADERS, stream=True)
+    r.raise_for_status()
+    with open(ZIP_PATH, "wb") as f:
+        for chunk in r.iter_content(chunk_size=8192):
+            f.write(chunk)
+    print("[*] Download complete.")
+
+def get_remote_size():
+    r = requests.head(URL, headers=HEADERS)
+    size = r.headers.get('Content-Length')
+    return int(size) if size else None
+
+def get_local_size():
+    if not os.path.exists(SIZE_FILE):
+        return None
+    with open(SIZE_FILE, "r") as f:
+        try:
+            return int(f.read())
+        except:
+            return None
+
+def save_local_size(size):
+    with open(SIZE_FILE, "w") as f:
+        f.write(str(size))
+
+def extract_zip():
+    print("[*] Extracting the zip...")
+    with zipfile.ZipFile(ZIP_PATH, 'r') as zip_ref:
+        zip_ref.extractall(EXTRACT_DIR)
+    print("[*] Extraction complete.")
+
+def run_script():
+    print("[*] Running Lagify.py...")
+    subprocess.run(["python3", RUN_SCRIPT])
+
+def main():
+    remote_size = get_remote_size()
+    local_size = get_local_size()
+
+    if (not os.path.exists(ZIP_PATH)) or (remote_size != local_size):
+        if os.path.exists(EXTRACT_DIR):
+            print("[*] Removing old files...")
+            shutil.rmtree(EXTRACT_DIR)
+        download_zip()
+        extract_zip()
+        save_local_size(remote_size)
+    else:
+        print("[*] Not updated, using existing files.")
+
+    run_script()
+
+if __name__ == "__main__":
+    main()
