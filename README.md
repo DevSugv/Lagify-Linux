@@ -29,6 +29,7 @@ Lagify-Linux is a powerful Denial-of-Service (DoS) testing tool supporting multi
 ## Installing Requirements
 ```bash
 pip install requests
+```
 
 ---
 
