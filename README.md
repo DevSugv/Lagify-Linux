@@ -60,7 +60,7 @@ pip install requests
 
 ## Preview
 
-![Screenshot 1](https://i.ibb.co/v4hfy34T/image.png)
+![Screenshot 1](https://i.ibb.co/h1YZyrGC/image.png)
 ![Screenshot 2](https://i.ibb.co/6Rm6Jkxd/image.png)
 
 ---
