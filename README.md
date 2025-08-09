@@ -65,9 +65,6 @@ pip install requests
 
 ---
 
-## Usage
-**The tool will automatically download necessary dependencies and files from the official release and run the selected attacks.**
-**Remember, 1 thread = 10 bots
 ### Disclaimer
 ### Use this tool only on networks and systems for which you have explicit permission. Unauthorized DoS attacks are illegal and punishable by law. The author is not responsible for any misuse or damage caused by this tool.
 
