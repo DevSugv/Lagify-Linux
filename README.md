@@ -31,7 +31,7 @@ Lagify-Linux is a powerful Denial-of-Service (DoS) testing tool supporting multi
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/aslge33/Lagify-Linux.git
+   git clone https://github.com/DevSugv/Lagify-Linux.git
    cd Lagify-Linux
 
 2. Give rights and Run the install script:
